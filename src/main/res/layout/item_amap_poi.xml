@@ -23,7 +23,6 @@
         android:layout_below="@id/title_view"
         android:layout_centerVertical="false"
         android:layout_marginTop="@dimen/base_mdpi"
-        android:maxLength="20"
         tools:text="悦方广场悦方广场悦方广场悦方广场"/>
 
     <com.angcyo.amap.view.HnSelectorImageView

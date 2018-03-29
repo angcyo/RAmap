@@ -25,15 +25,15 @@
             android:layout_height="0dp"
             android:layout_weight="3">
 
-            <com.hn.d.valley.widget.HnMapLayout
+            <com.angcyo.amap.view.HnMapLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
                 <com.amap.api.maps.TextureMapView
-                    android:id="@+id/map_view"
+                    android:id="@+id/base_map_view"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"/>
-            </com.hn.d.valley.widget.HnMapLayout>
+            </com.angcyo.amap.view.HnMapLayout>
 
             <ImageView
                 android:id="@+id/location_pin"
@@ -57,7 +57,8 @@
 
                 <TextView
                     android:id="@+id/marker_address"
-                    style="@style/BaseWhiteColorTextStyle"/>
+                    style="@style/BaseWhiteColorTextStyle"
+                    android:text="获取中..."/>
             </LinearLayout>
 
             <Button

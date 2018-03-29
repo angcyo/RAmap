@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!--地图显示-->
+    <com.amap.api.maps.TextureMapView
+        android:id="@+id/base_map_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <!--显示自定义的刷新定位按钮-->
+
+</FrameLayout>

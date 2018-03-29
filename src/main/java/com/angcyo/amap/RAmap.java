@@ -25,7 +25,6 @@ import com.amap.api.services.geocoder.RegeocodeAddress;
 import com.amap.api.services.geocoder.RegeocodeQuery;
 import com.amap.api.services.geocoder.RegeocodeResult;
 import com.angcyo.library.utils.L;
-import com.angcyo.realm.RRealm;
 import com.angcyo.uiview.utils.T_;
 
 import java.security.MessageDigest;
@@ -35,8 +34,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import io.realm.Realm;
-import io.realm.RealmResults;
 import rx.functions.Action1;
 
 /**
@@ -129,11 +126,11 @@ public class RAmap {
     @UiThread
     public static AmapBean getLastLocation() {
         AmapBean bean = null;
-        RealmResults<AmapBean> all = RRealm.realm().where(AmapBean.class).findAll();
-                //.equalTo("uid", UserCache.getUserAccount()).findAll();
-        if (all.size() > 0) {
-            bean = all.last();
-        }
+//        RealmResults<AmapBeanRealm> all = RRealm.realm().where(AmapBeanRealm.class).findAll();
+//                //.equalTo("uid", UserCache.getUserAccount()).findAll();
+//        if (all.size() > 0) {
+//            bean = all.last();
+//        }
         return bean;
     }
 
@@ -142,7 +139,7 @@ public class RAmap {
         AmapBean bean = getLastLocation();
         if (bean == null) {
             bean = new AmapBean();
-            bean.address = "默认地址";
+            bean.address = "天安门";
             bean.latitude = 116.32715863448607;
             bean.longitude = 39.990912172420714;
         }
@@ -150,17 +147,9 @@ public class RAmap {
     }
 
     public static AmapBean saveAmapLocation2(final AMapLocation location) {
-        AmapBean amapBean = new AmapBean();
-        amapBean.address = location.getAddress();
-        amapBean.city = location.getCity();
-        amapBean.country = location.getCountry();
-        amapBean.district = location.getDistrict();
-        amapBean.latitude = location.getLatitude();
-        amapBean.longitude = location.getLongitude();
-        amapBean.province = location.getProvince();
-        amapBean.cityCode = location.getCityCode();
-        RRealm.save(amapBean);
-        return amapBean;
+        AmapBean amapBeanRealm = AmapBean.get(location);
+        //RRealm.save(AmapBeanRealm);
+        return amapBeanRealm;
     }
 
     public static void saveAmapLocation(final AMapLocation location) {
@@ -181,25 +170,25 @@ public class RAmap {
             }
         }
 
-        RRealm.exe(new Realm.Transaction() {
-            @Override
-            public void execute(Realm realm) {
-                AmapBean amapBean = realm.createObject(AmapBean.class);
-//                amapBean.setUid(UserCache.getUserAccount());
-                amapBean.address = location.getAddress();
-                amapBean.city = location.getCity();
-                amapBean.country = location.getCountry();
-                amapBean.district = location.getDistrict();
-                amapBean.latitude = location.getLatitude();
-                amapBean.longitude = location.getLongitude();
-                amapBean.province = location.getProvince();
-                amapBean.cityCode = location.getCityCode();
-
-                for (OnAmapLocationListener listener : listeners) {
-                    listener.onLocationListener(amapBean);
-                }
-            }
-        });
+//        RRealm.exe(new Realm.Transaction() {
+//            @Override
+//            public void execute(Realm realm) {
+//                AmapBeanRealm AmapBeanRealm = realm.createObject(AmapBeanRealm.class);
+////                AmapBeanRealm.setUid(UserCache.getUserAccount());
+//                AmapBeanRealm.address = location.getAddress();
+//                AmapBeanRealm.city = location.getCity();
+//                AmapBeanRealm.country = location.getCountry();
+//                AmapBeanRealm.district = location.getDistrict();
+//                AmapBeanRealm.latitude = location.getLatitude();
+//                AmapBeanRealm.longitude = location.getLongitude();
+//                AmapBeanRealm.province = location.getProvince();
+//                AmapBeanRealm.cityCode = location.getCityCode();
+//
+//                for (OnAmapLocationListener listener : listeners) {
+//                    listener.onLocationListener(AmapBeanRealm);
+//                }
+//            }
+//        });
 
 //        try {
 //            if (Integer.valueOf(UserCache.getUserAccount()) < 1000 ||
@@ -585,9 +574,9 @@ public class RAmap {
 
     public static abstract class OnAmapLocationListener {
         /**
-         * @param amapBean 定位失败 为null
+         * @param AmapBeanRealm 定位失败 为null
          */
-        public void onLocationListener(AmapBean amapBean) {
+        public void onLocationListener(AmapBean AmapBeanRealm) {
 
         }
 

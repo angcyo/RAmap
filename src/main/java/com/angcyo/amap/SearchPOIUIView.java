@@ -114,17 +114,17 @@ public class SearchPOIUIView extends UIContentView {
             @Override
             public void onPoiItemSelector(com.amap.api.services.core.PoiItem item) {
                 // 选中
-                AmapBean amapBean = new AmapBean();
+                AmapBean AmapBeanRealm = new AmapBean();
                 LatLonPoint latLonPoint = item.getLatLonPoint();
 
-                amapBean.title = item.getTitle();
-                amapBean.latitude = latLonPoint.getLatitude();
-                amapBean.longitude = latLonPoint.getLongitude();
-                amapBean.address = PoiItemAdapter.getAddress(item);
-                amapBean.city = item.getCityName();
-                amapBean.province = item.getProvinceName();
-                amapBean.district = item.getAdName();
-                mTargetBean = amapBean;
+                AmapBeanRealm.title = item.getTitle();
+                AmapBeanRealm.latitude = latLonPoint.getLatitude();
+                AmapBeanRealm.longitude = latLonPoint.getLongitude();
+                AmapBeanRealm.address = PoiItemAdapter.getAddress(item);
+                AmapBeanRealm.city = item.getCityName();
+                AmapBeanRealm.province = item.getProvinceName();
+                AmapBeanRealm.district = item.getAdName();
+                mTargetBean = AmapBeanRealm;
 
 //                mILayout.finishIView(AmapUIView.class);
                 // 销毁ampauiview

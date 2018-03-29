@@ -21,6 +21,7 @@ import com.amap.api.maps.CameraUpdateFactory;
 import com.amap.api.maps.TextureMapView;
 import com.amap.api.maps.model.CameraPosition;
 import com.amap.api.maps.model.LatLng;
+import com.amap.api.maps.model.MyLocationStyle;
 import com.amap.api.maps.model.NaviPara;
 import com.amap.api.services.core.LatLonPoint;
 import com.amap.api.services.core.PoiItem;
@@ -36,7 +37,6 @@ import com.angcyo.amap.overlay.AMapUtil;
 import com.angcyo.amap.overlay.WalkRouteOverlay;
 import com.angcyo.amap.view.HnMapRootLayout;
 import com.angcyo.library.utils.L;
-import com.angcyo.realm.RRealm;
 import com.angcyo.uiview.base.UIContentView;
 import com.angcyo.uiview.container.ContentLayout;
 import com.angcyo.uiview.container.SwipeBackLayout;
@@ -51,7 +51,6 @@ import com.angcyo.uiview.widget.EmptyView;
 
 import java.util.ArrayList;
 
-import io.realm.RealmResults;
 import rx.functions.Action1;
 
 import static com.angcyo.amap.AmapControl.DEFAULT_ZOOM_LEVEL;
@@ -143,7 +142,7 @@ public class AmapUIView extends UIContentView implements AMap.OnCameraChangeList
     private AMap mMap;
     //    private OnLocationChangedListener mListener;
 //    private AMapLocationClient mLocationClient;
-    private Action1<AmapBean> mBeanAction1;
+    private Action1<AmapBean> mOnSelector;
     private int mState = ViewDragHelper.STATE_IDLE;
     private boolean mSend = false;//是否需要发送位置
     private AmapBean mOtherUserAmapBean;
@@ -171,11 +170,34 @@ public class AmapUIView extends UIContentView implements AMap.OnCameraChangeList
      */
     private boolean showRoute = false;
 
-    public AmapUIView(Action1<AmapBean> beanAction1, AmapBean otherUserAmapBean, String url, boolean send) {
+    /**
+     * 选择位置
+     */
+    public AmapUIView(Action1<AmapBean> onSelector) {
+        mOnSelector = onSelector;
+        mSend = true;
+    }
+
+    /**
+     * 查看位置
+     */
+    public AmapUIView(AmapBean otherUserAmapBean) {
+        mOtherUserAmapBean = otherUserAmapBean;
+        mSend = false;
+    }
+
+    public AmapUIView(Action1<AmapBean> onSelector, AmapBean otherUserAmapBean, String url, boolean send) {
         mOtherUserAmapBean = otherUserAmapBean;
         userUrl = url;
         mSend = send;
-        mBeanAction1 = beanAction1;
+        mOnSelector = onSelector;
+    }
+
+    /**
+     * 刚进来显示最后一次的位置
+     */
+    public void setLastBean(AmapBean lastBean) {
+        mLastBean = lastBean;
     }
 
     @Override
@@ -241,20 +263,20 @@ public class AmapUIView extends UIContentView implements AMap.OnCameraChangeList
         mPoiItemAdapter = new PoiItemAdapter(mActivity, new PoiItemAdapter.OnPoiItemListener() {
             @Override
             public void onPoiItemSelector(PoiItem item) {
-                AmapBean amapBean = new AmapBean();
+                AmapBean AmapBeanRealm = new AmapBean();
                 LatLonPoint latLonPoint = item.getLatLonPoint();
                 lockCameraChangedListener = true;
 
-                amapBean.title = item.getTitle();
-                amapBean.latitude = latLonPoint.getLatitude();
-                amapBean.longitude = latLonPoint.getLongitude();
-                amapBean.address = PoiItemAdapter.getAddress(item);
-                amapBean.city = item.getCityName();
-                amapBean.province = item.getProvinceName();
-                amapBean.district = item.getAdName();
-                mTargetBean = amapBean;
+                AmapBeanRealm.title = item.getTitle();
+                AmapBeanRealm.latitude = latLonPoint.getLatitude();
+                AmapBeanRealm.longitude = latLonPoint.getLongitude();
+                AmapBeanRealm.address = PoiItemAdapter.getAddress(item);
+                AmapBeanRealm.city = item.getCityName();
+                AmapBeanRealm.province = item.getProvinceName();
+                AmapBeanRealm.district = item.getAdName();
+                mTargetBean = AmapBeanRealm;
 
-                mMarkerAddress.setText(amapBean.address);
+                mMarkerAddress.setText(AmapBeanRealm.address);
                 moveToLocation(latLonPoint.getLatitude(), latLonPoint.getLongitude());
             }
 
@@ -314,8 +336,8 @@ public class AmapUIView extends UIContentView implements AMap.OnCameraChangeList
                                 finishIView(AmapUIView.this, new UIParam(new Runnable() {
                                     @Override
                                     public void run() {
-                                        if (mBeanAction1 != null) {
-                                            mBeanAction1.call(mTargetBean);
+                                        if (mOnSelector != null) {
+                                            mOnSelector.call(mTargetBean);
                                         }
                                     }
                                 }));
@@ -400,8 +422,8 @@ public class AmapUIView extends UIContentView implements AMap.OnCameraChangeList
     public void onViewUnloadDelay() {
         super.onViewUnloadDelay();
         mMapView.onDestroy();
-        if (!isCallAction && mBeanAction1 != null) {
-            mBeanAction1.call(null);
+        if (!isCallAction && mOnSelector != null) {
+            mOnSelector.call(null);
         }
     }
 
@@ -430,15 +452,18 @@ public class AmapUIView extends UIContentView implements AMap.OnCameraChangeList
     }
 
     public void onMyLocationClick() {
-        mLastBean = RAmap.getLastLocation();
-        moveToLocation(mLastBean);
+        //mLastBean = RAmap.getLastLocation();
+        moveToLocation(RAmap.getLastLocation());
     }
 
     private void initAmap() {
         mMap = mMapView.getMap();
         mAmapControl = new AmapControl(mActivity, mMap);
         mAmapControl.setShowMyMarker(false);
-        mAmapControl.initAmap(mMap, true, mAmapControl);
+//        mAmapControl.initAmap(mMap, true, mAmapControl);
+        MyLocationStyle myLocationStyle = AmapControl.createMyLocationStyle();
+        myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_LOCATE);
+        mAmapControl.initAmap(mMap, true, myLocationStyle, mAmapControl);
         //mAmapControl.setNeedMoveToLocation(mOtherUserAmapBean);
 
 //        try {
@@ -485,40 +510,41 @@ public class AmapUIView extends UIContentView implements AMap.OnCameraChangeList
      * 定位到最后一次的位置
      */
     private void initLocation() {
-        if (mOtherUserAmapBean == null) {
-            RealmResults<AmapBean> all = RRealm.realm().where(AmapBean.class).findAll();
-            if (all.size() > 0) {
-                mLastBean = all.last();
-                mOtherUserAmapBean = mLastBean;
-                moveToLocation(mLastBean);
-            } else {
-                mOtherUserAmapBean = new AmapBean();
-                mOtherUserAmapBean.latitude = 39.90923;
-                mOtherUserAmapBean.longitude = 116.397428;
-                mOtherUserAmapBean.address = "--";
-                moveToLocation(mOtherUserAmapBean);
-            }
-        } else {
-            //mAmapControl.addMarks(new LatLng(mOtherUserAmapBean.latitude, mOtherUserAmapBean.longitude), userUrl);
-            if (marksDrawableId != -1) {
-                //mAmapControl.addMarks(new LatLng(mOtherUserAmapBean.latitude, mOtherUserAmapBean.longitude), marksDrawableId);//显示坐标提示marks
-            } else {
-                mAmapControl.addMarks(new LatLng(mOtherUserAmapBean.latitude, mOtherUserAmapBean.longitude));//显示坐标提示marks
-            }
-            mAmapControl.setNeedMoveToLocation(mOtherUserAmapBean);
-            postDelayed(300, new Runnable() {
-                @Override
-                public void run() {
-                    mAmapControl.moveToLocation(mOtherUserAmapBean, false);
-                    if (showRoute) {
-                        //规划步行路线
-                        showRoute(RAmap.getLatLngFromBean(mOtherUserAmapBean));
-                    }
-                }
-            });
-        }
-        mMarkerAddress.setText(mOtherUserAmapBean.address);
-        mLastTarget = new LatLng(mOtherUserAmapBean.latitude, mOtherUserAmapBean.longitude);
+//        if (mOtherUserAmapBean == null) {
+//            if (mLastBean != null) {
+//                mOtherUserAmapBean = mLastBean;
+//                moveToLocation(mLastBean);
+//            } else {
+//                mOtherUserAmapBean = new AmapBeanRealm();
+//                mOtherUserAmapBean.latitude = 39.90923;
+//                mOtherUserAmapBean.longitude = 116.397428;
+//                mOtherUserAmapBean.address = "天安门";
+//                moveToLocation(mOtherUserAmapBean);
+//            }
+//        } else {
+//            //mAmapControl.addMarks(new LatLng(mOtherUserAmapBean.latitude, mOtherUserAmapBean.longitude), userUrl);
+//            if (marksDrawableId != -1) {
+//                //mAmapControl.addMarks(new LatLng(mOtherUserAmapBean.latitude, mOtherUserAmapBean.longitude), marksDrawableId);//显示坐标提示marks
+//            } else {
+//                mAmapControl.addMarks(new LatLng(mOtherUserAmapBean.latitude, mOtherUserAmapBean.longitude));//显示坐标提示marks
+//            }
+//            mAmapControl.setNeedMoveToLocation(mOtherUserAmapBean);
+//            postDelayed(300, new Runnable() {
+//                @Override
+//                public void run() {
+//                    mAmapControl.moveToLocation(mOtherUserAmapBean, false);
+//                    if (showRoute) {
+//                        //规划步行路线
+//                        showRoute(RAmap.getLatLngFromBean(mOtherUserAmapBean));
+//                    }
+//                }
+//            });
+//        }
+//        mMarkerAddress.setText(mOtherUserAmapBean.address);
+//        mLastTarget = new LatLng(mOtherUserAmapBean.latitude, mOtherUserAmapBean.longitude);
+//        if (!mSend) {
+//            moveToLocation(mOtherUserAmapBean);
+//        }
     }
 
     private void showRoute(LatLng targetLatLng /*目标地*/) {

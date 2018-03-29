@@ -667,9 +667,9 @@ public class AmapControl implements LocationSource, AMapLocationListener {
                     lastSaveTime = System.currentTimeMillis();
                 }
                 mListener.onLocationChanged(amapLocation);// 显示系统小蓝点
-                //L.e("call: onLocationChanged([amapLocation])-> " + amapLocation);
+                L.e("call: onLocationChanged([amapLocation])-> " + amapLocation);
             } else {
-                String errText = "定位失败," + amapLocation.getErrorCode() + ": " + amapLocation.getErrorInfo();
+                String errText = "onLocationChanged 定位失败," + amapLocation.getErrorCode() + ": " + amapLocation.getErrorInfo();
                 L.e("AmapErr:" + errText);
             }
         }

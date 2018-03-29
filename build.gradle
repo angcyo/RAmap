@@ -1,5 +1,5 @@
 apply from: '../RLibrary/lib.gradle'
-apply plugin: 'realm-android'
+//apply plugin: 'realm-android'
 
 // 如果出错, 请将以下代码, 同时复制到APP的gradle文件中
 android {
@@ -14,5 +14,5 @@ dependencies {
     api fileTree(dir: 'libs', include: ['*.jar'])
 
     api project(':RLibrary:uiview')
-    api project(':RRealm')
+//    api project(':RRealm')
 }
