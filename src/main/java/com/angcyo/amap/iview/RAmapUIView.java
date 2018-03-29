@@ -279,7 +279,7 @@ public class RAmapUIView extends BaseMapIView {
         mMarkerAddress.setText("正在获取...");
         if (needSelectorPoi) {
         } else {
-            mTargetBean = null;
+            //mTargetBean = null;
         }
         mCurrentPage = 1;
     }
