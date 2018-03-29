@@ -31,8 +31,6 @@ import com.angcyo.uiview.utils.T_;
 
 import rx.functions.Action1;
 
-import static com.angcyo.amap.AmapControl.DEFAULT_ZOOM_LEVEL;
-
 /**
  * Copyright (C) 2016,深圳市红鸟网络科技股份有限公司 All rights reserved.
  * 项目名称：
@@ -120,7 +118,7 @@ public class BaseMapIView extends UIContentView implements AMap.OnMyLocationChan
     }
 
     public void moveToLocation(LatLng latlng) {
-        moveToLocation(latlng, DEFAULT_ZOOM_LEVEL, true);
+        moveToLocation(latlng, mAMap.getCameraPosition().zoom /*DEFAULT_ZOOM_LEVEL*/, true);
     }
 
     public void moveToLocation(AmapBean amapBean) {
@@ -129,11 +127,11 @@ public class BaseMapIView extends UIContentView implements AMap.OnMyLocationChan
         }
     }
 
-    public void moveToLocation(LatLng latlng, int zoom) {
+    public void moveToLocation(LatLng latlng, float zoom) {
         moveToLocation(latlng, zoom, true);
     }
 
-    public void moveToLocation(LatLng latlng, int zoom, boolean anim) {
+    public void moveToLocation(LatLng latlng, float zoom, boolean anim) {
         if (latlng == null) {
             return;
         }
