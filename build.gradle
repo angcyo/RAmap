@@ -1,0 +1,18 @@
+apply from: '../RLibrary/lib.gradle'
+apply plugin: 'realm-android'
+
+// 如果出错, 请将以下代码, 同时复制到APP的gradle文件中
+android {
+    defaultConfig {
+        manifestPlaceholders = [
+                //高德(AppKey)
+                AMAP_APPKEY: "cd59516f8ab43b4f954c03bf7275d189"
+        ]
+    }
+}
+dependencies {
+    api fileTree(dir: 'libs', include: ['*.jar'])
+
+    api project(':RLibrary:uiview')
+    api project(':RRealm')
+}

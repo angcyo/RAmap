@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="horizontal"
+              android:paddingEnd="@dimen/base_xhdpi"
+              android:paddingStart="@dimen/base_xhdpi"
+              android:paddingTop="@dimen/base_ldpi">
+
+    <com.angcyo.uiview.widget.ExEditText
+        android:id="@+id/edit_text_view"
+        style="@style/BaseEditStyle"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="@drawable/base_white_round_shape"
+        android:drawablePadding="@dimen/base_xhdpi"
+        android:drawableStart="@drawable/search_xuanzhelianxiren"
+        android:hint="搜索"
+        android:imeOptions="actionSearch"
+        android:paddingBottom="0dp"
+        android:paddingEnd="@dimen/base_hdpi"
+        android:paddingStart="@dimen/base_hdpi"
+        android:paddingTop="0dp"
+        android:textColor="@color/base_text_color"
+        android:textSize="@dimen/default_text_little_size">
+    </com.angcyo.uiview.widget.ExEditText>
+
+    <com.angcyo.uiview.widget.RTextView
+        android:id="@+id/cancel_view"
+        style="@style/BaseDarkTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginStart="@dimen/base_xhdpi"
+        android:background="@drawable/base_bg2_selector"
+        android:clickable="true"
+        android:text="@string/base_cancel"
+        android:textColor="@color/default_base_white"/>
+
+</LinearLayout>

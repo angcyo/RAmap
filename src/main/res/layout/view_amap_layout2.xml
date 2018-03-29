@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/root_layout"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/ll_action"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:gravity="center_vertical">
+
+            <TextView
+                style="@style/BaseMainTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:padding="@dimen/base_xhdpi_15"
+                android:text="选择位置"
+                android:textSize="@dimen/base_xhdpi_15"
+                />
+
+            <com.angcyo.uiview.widget.RTextView
+                android:id="@+id/tv_selectcity"
+                style="@style/BaseMainTextStyle"
+                android:layout_width="190dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|center_horizontal"
+                android:background="#f9f9f9"
+                android:gravity="center"
+                android:padding="@dimen/base_xhdpi"
+                android:text="点击选择城市"
+                />
+
+        </FrameLayout>
+
+        <View
+            style="@style/BaseHLine"
+            android:layout_marginEnd="@dimen/base_xhdpi"
+            android:layout_marginStart="@dimen/base_xhdpi"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/BaseMainTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:padding="@dimen/base_xhdpi_15"
+                android:text="推广范围"
+                android:textSize="@dimen/base_xhdpi_15"
+                />
+
+            <!--<RadioGroup-->
+                <!--android:id="@+id/rg_group"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:gravity="center_vertical"-->
+                <!--android:orientation="horizontal">-->
+
+                <!--<RadioButton-->
+                    <!--android:id="@+id/cb_near"-->
+                    <!--style="@style/BaseMainTextStyle"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginStart="@dimen/base_xhdpi"-->
+                    <!--android:background="#f9f9f9"-->
+                    <!--android:button="@null"-->
+                    <!--android:drawablePadding="7dp"-->
+                    <!--android:drawableStart="@drawable/activity_near_selector"-->
+                    <!--android:maxLines="1"-->
+                    <!--android:padding="@dimen/base_xhdpi"-->
+                    <!--android:paddingStart="@dimen/base_ldpi"-->
+                    <!--android:text="2公里"/>-->
+
+                <!--<RadioButton-->
+                    <!--android:id="@+id/cb_city"-->
+                    <!--style="@style/BaseMainTextStyle"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginStart="@dimen/base_xhdpi_15"-->
+                    <!--android:background="#f9f9f9"-->
+                    <!--android:button="@null"-->
+                    <!--android:drawablePadding="7dp"-->
+                    <!--android:drawableStart="@drawable/activity_near_selector"-->
+                    <!--android:maxLines="1"-->
+                    <!--android:padding="@dimen/base_xhdpi"-->
+                    <!--android:paddingStart="@dimen/base_ldpi"-->
+                    <!--android:text="全市"/>-->
+
+                <!--<RadioButton-->
+                    <!--android:id="@+id/cb_country"-->
+                    <!--style="@style/BaseMainTextStyle"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginStart="@dimen/base_xhdpi_15"-->
+                    <!--android:background="#f9f9f9"-->
+                    <!--android:button="@null"-->
+                    <!--android:drawablePadding="7dp"-->
+                    <!--android:drawableStart="@drawable/activity_near_selector"-->
+                    <!--android:maxLines="1"-->
+                    <!--android:padding="@dimen/base_xhdpi"-->
+                    <!--android:paddingStart="@dimen/base_ldpi"-->
+                    <!--android:text="全国"/>-->
+            <!--</RadioGroup>-->
+        </LinearLayout>
+
+        <View
+            style="@style/BaseHLine"
+            android:layout_height="1px"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/map_root_layout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="3">
+
+            <com.amap.api.maps.TextureMapView
+                android:id="@+id/map_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+            <!--<ImageView-->
+                <!--android:id="@+id/location_pin"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_gravity="center"-->
+                <!--android:src="@drawable/pin"/>-->
+
+            <!--<LinearLayout-->
+                <!--android:id="@+id/location_info_layout"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_gravity="center"-->
+                <!--android:layout_marginBottom="60dp"-->
+                <!--android:background="@drawable/marker_info_bg"-->
+                <!--android:minWidth="@dimen/base_80dpi"-->
+                <!--android:orientation="vertical"-->
+                <!--android:paddingLeft="8dp"-->
+                <!--android:paddingRight="8dp"-->
+                <!--android:visibility="visible">-->
+
+                <!--<TextView-->
+                    <!--android:id="@+id/marker_address"-->
+                    <!--style="@style/WhiteColorTextStyle"/>-->
+            <!--</LinearLayout>-->
+
+            <!--<Button-->
+                <!--android:id="@+id/my_location"-->
+                <!--android:layout_width="@dimen/base_title_bar_item_size"-->
+                <!--android:layout_height="@dimen/base_title_bar_item_size"-->
+                <!--android:layout_gravity="bottom"-->
+                <!--android:layout_marginBottom="@dimen/base_xxxhdpi"-->
+                <!--android:layout_marginStart="@dimen/base_hdpi"-->
+                <!--android:background="@drawable/btn_location_selector"/>-->
+
+            <com.angcyo.uiview.widget.Button
+                android:id="@+id/tv_select"
+                style="@style/BaseMainTextStyle"
+                android:layout_width="180dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center_horizontal|bottom"
+                android:layout_marginBottom="@dimen/base_xxxhdpi"
+                android:background="@drawable/base_gold_round_shape_6"
+                android:text="确认"
+                android:visibility="visible"/>
+        </FrameLayout>
+    </LinearLayout>
+</LinearLayout>

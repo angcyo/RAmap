@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/base_xhdpi">
+
+    <com.angcyo.uiview.widget.RTextView
+        android:id="@+id/title_view"
+        style="@style/BaseMainTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="false"
+        tools:text="悦方广场"/>
+
+    <com.angcyo.uiview.widget.RTextView
+        android:id="@+id/address_view"
+        style="@style/BaseSingleDarkTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/title_view"
+        android:layout_centerVertical="false"
+        android:layout_marginTop="@dimen/base_mdpi"
+        android:maxLength="20"
+        tools:text="悦方广场悦方广场悦方广场悦方广场"/>
+
+    <com.angcyo.amap.view.HnSelectorImageView
+        android:id="@+id/select_image_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:src="@drawable/selected"
+        android:tint="@color/theme_color_accent"
+        android:visibility="gone"/>
+
+</RelativeLayout>

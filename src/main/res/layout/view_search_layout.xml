@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <!--<com.angcyo.uiview.widget.ExEditText-->
+    <!--android:id="@+id/search_input_view"-->
+    <!--style="@style/SingleMainTextStyle"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="@dimen/base_title_bar_item_size"-->
+    <!--android:layout_marginTop="@dimen/base_xhdpi"-->
+    <!--android:background="@android:color/white"-->
+    <!--android:drawablePadding="@dimen/base_xhdpi"-->
+    <!--android:drawableStart="@drawable/search_xuanzhelianxiren"-->
+    <!--android:hint="@string/search_hint"-->
+    <!--android:imeOptions="actionSearch"-->
+    <!--android:inputType="number"-->
+    <!--android:paddingEnd="@dimen/base_xhdpi"-->
+    <!--android:paddingStart="@dimen/base_xhdpi"/>-->
+
+    <com.angcyo.uiview.widget.TitleBarLayout
+        android:id="@+id/title_bar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/action_bar_height"
+        android:background="@color/theme_color_primary"
+        android:drawablePadding="@dimen/base_xhdpi"
+        android:paddingBottom="@dimen/base_ldpi">
+
+        <include layout="@layout/item_searchview_layout"/>
+
+    </com.angcyo.uiview.widget.TitleBarLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <com.angcyo.uiview.recycler.RRecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <LinearLayout
+            android:id="@+id/search_control_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/base_xhdpi"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/search_tip_view"
+                style="@style/BaseMainTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/base_40dpi"
+                android:layout_marginStart="@dimen/base_xhdpi_"
+                android:background="@drawable/base_bg_selector_v21"
+                android:drawablePadding="@dimen/base_xhdpi"
+                android:paddingLeft="@dimen/base_xhdpi"
+                android:text="搜索"/>
+
+            <View
+                style="@style/BaseHLine"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/empty_tip_view"
+            style="@style/BaseDarkTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/base_xhdpi"/>
+    </RelativeLayout>
+
+</LinearLayout>

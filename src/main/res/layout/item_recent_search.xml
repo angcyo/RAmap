@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/base_xhdpi"
+                android:paddingEnd="@dimen/base_xhdpi_15"
+                android:paddingStart="@dimen/base_xhdpi_15"
+                android:paddingTop="@dimen/base_xhdpi">
+
+    <RelativeLayout
+        android:id="@+id/layout_search_view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/base_xxxhdpi"
+        android:background="@drawable/base_dark_round_selector_5x"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/search_view"
+            style="@style/BaseDarkTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/base_xxxhdpi"
+            android:drawableLeft="@drawable/search_xuanzhelianxiren"
+            android:drawablePadding="@dimen/base_ldpi"
+            android:paddingLeft="@dimen/base_xhdpi"
+            android:text="搜索"/>
+    </RelativeLayout>
+
+</RelativeLayout>
