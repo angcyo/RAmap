@@ -73,7 +73,7 @@ public class BaseMapIView extends UIContentView implements AMap.OnMyLocationChan
     @Override
     public void onViewCreate(View rootView, UIParam param) {
         super.onViewCreate(rootView, param);
-        mActivity.checkPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
+        checkPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
                         Manifest.permission.ACCESS_COARSE_LOCATION},
                 new Action1<Boolean>() {
                     @Override

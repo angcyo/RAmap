@@ -352,7 +352,7 @@ public class AmapUIView extends UIContentView implements AMap.OnCameraChangeList
     @Override
     public void onViewCreate(View rootView, UIParam param) {
         super.onViewCreate(rootView, param);
-        mActivity.checkPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, new Action1<Boolean>() {
+        checkPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, new Action1<Boolean>() {
             @Override
             public void call(Boolean aBoolean) {
                 if (aBoolean) {
